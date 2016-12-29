@@ -13,8 +13,8 @@ server.get(/.*/, restify.serveStatic({
 	'directory': '.',
 	'default': 'index.html'
 }));
-
-server.listen(process.env.port || process.env.PORT || 3978, function () {
+//server.listen(process.env.port || process.env.PORT || 3978, function () {
+server.listen(process.env.port || process.env.PORT, function () {
    console.log('%s listening to %s', server.name, server.url); 
 });
   
