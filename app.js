@@ -1,7 +1,43 @@
 var builder = require('botbuilder');
+var express = require('express');
+var app = express();
+  
+// Create application/x-www-form-urlencoded parser
+ 
 
-var connector = new builder.ConsoleConnector().listen();
+app.use(express.static('public'));
+app.get('/index.htm', function (req, res) {
+   res.sendFile( __dirname + "/" + "index.html" );
+})
+
+
+// Create chat bot
+var connector = new builder.ChatConnector({
+    //    appId: process.env.MICROSOFT_APP_ID,
+    //    appPassword: process.env.MICROSOFT_APP_PASSWORD
+    appId: 'a3d7b4a7-bdc4-4d72-a6bd-7a99bab69923',
+    appPassword: 'KKqnk5FSZOHmaHwnkUJ4f9C'
+});
 var bot = new builder.UniversalBot(connector);
+app.post('/api/messages', connector.listen());
+
+//=========================================================
+// Bots Dialogs
+//=========================================================
+
+ 
+
+var port = process.env.port || process.env.port;
+//var server = app.listen(8081, function () {
+var server = app.listen(port, function () {
+   var host = server.address().address
+   var port = server.address().port
+   
+   console.log("Example app listening at http://%s:%s", host, port)
+
+})
+
+
 var intents = new builder.IntentDialog();
 bot.dialog('/', intents);
 
